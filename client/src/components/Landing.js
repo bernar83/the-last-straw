@@ -2,6 +2,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import { Link } from 'react-router-dom';
 
 const Landing = () => {
   return (
@@ -14,12 +15,12 @@ const Landing = () => {
       </Typography>
       <Grid container spacing={16} style={{justifyContent: "center", marginTop: "10px"}}>
         <Grid item >
-          <Button variant="contained">
+          <Button variant="contained" component={Link} to={'/register'}>
             Register
           </Button>
         </Grid>
         <Grid item >
-          <Button variant="contained">
+          <Button variant="contained" component={Link} to={'/login'}>
             Log In
           </Button>
         </Grid>
