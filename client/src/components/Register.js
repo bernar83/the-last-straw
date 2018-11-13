@@ -2,16 +2,17 @@ import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import axios from 'axios';
+import axios from "axios";
 
 class Register extends Component {
   state = {
     username: "",
     password: "",
-    passwordConfirmation: ""
+    passwordConfirmation: "",
+    passwordsMatch: true
   };
 
-  handleChange = event => {
+  handleUserChange = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
@@ -20,11 +21,38 @@ class Register extends Component {
   onHandleSubmit = event => {
     event.preventDefault();
 
-    axios.post('/register', {
-      username: this.state.username,
-      password: this.state.password
-    })
-    .catch(err => console.log(err));
+    axios
+      .post("/register", {
+        username: this.state.username,
+        password: this.state.password
+      })
+      .then(res => this.props.history.push(res.data.redirect))
+      .catch(err => console.log(err));
+  };
+
+  onPassword = event => {
+    this.setState({ password: event.target.value },
+      () => {
+        this.checkPasswords();
+      }
+    );
+  };
+
+  onConfirm = event => {
+    this.setState({ passwordConfirmation: event.target.value },
+      () => {
+        this.checkPasswords();
+      }
+    );
+  };
+
+  checkPasswords() {
+    if (this.state.password === this.state.passwordConfirmation) {
+      this.setState({ passwordsMatch: true });
+    }
+    else {
+      this.setState({ passwordsMatch: false });
+    }
   }
 
   render() {
@@ -38,24 +66,30 @@ class Register extends Component {
             label="Username"
             name="username"
             value={this.state.username}
-            onChange={this.handleChange}
+            onChange={this.handleUserChange}
+            required={true}
           />
           <TextField
             label="Password"
             name="password"
             type="password"
             value={this.state.password}
-            onChange={this.handleChange}
+            onChange={this.onPassword}
+            required={true}
           />
           <TextField
             label="Re-type Password"
             name="passwordConfirmation"
             type="password"
             value={this.state.passwordConfirmation}
-            onChange={this.handleChange}
+            onChange={this.onConfirm}
+            required={true}
           />
-          <Button variant="contained" type="submit">Register</Button>
+          <Button variant="contained" type="submit">
+            Register
+          </Button>
         </form>
+        {!this.state.passwordsMatch && <p>Passwords don't match!</p>}
       </div>
     );
   }

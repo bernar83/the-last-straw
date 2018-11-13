@@ -2,7 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
-const passport = require("passport");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
