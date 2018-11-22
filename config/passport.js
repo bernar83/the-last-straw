@@ -1,9 +1,9 @@
 const passport = require("passport");
-require("./strategies/localStrategy");
+require("./strategies/jwtStrategy")();
 
 module.exports = function passportConfig(app) {
   app.use(passport.initialize());
-  app.use(passport.session());
+  /* app.use(passport.session());
 
   passport.serializeUser((user, done) => {
     done(null, user);
@@ -11,5 +11,5 @@ module.exports = function passportConfig(app) {
 
   passport.deserializeUser((user, done) => {
     done(null, user);
-  });
+  }); */
 };

@@ -1,9 +1,16 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
 
-router.get("/", (req, res) => {
-  console.log(req.user);
-  res.json(req.user);
-});
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.json({
+      id: req.user._id,
+      name: req.user.username
+    });
+  }
+);
 
 module.exports = router;

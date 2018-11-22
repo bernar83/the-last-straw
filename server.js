@@ -7,21 +7,22 @@ const session = require("express-session");
 
 const register = require("./routes/register");
 const profile = require("./routes/profile");
+const login = require("./routes/login");
 
 const app = express();
 dotenv.config();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+/* app.use(cookieParser());
 app.use(session({ 
-  secret: require("./config/keys").sessionSecret,
+  secret: process.env.SESSION_SECRET,
   saveUninitialized: false,
   resave: false
-}));
-require('./config/passport')(app);
+})); */
+require("./config/passport")(app);
 
-const db = require("./config/keys").mongoURI;
+const db = process.env.MONGO_URI;
 
 mongoose
   .connect(
@@ -33,6 +34,7 @@ mongoose
 
 app.use("/register", register);
 app.use("/profile", profile);
+app.use("/login", login);
 
 const port = process.env.PORT || 5000;
 
