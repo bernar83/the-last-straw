@@ -3,13 +3,21 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 
 const User = require("../models/User");
+const validateRegisterInput = require("../validation/registerValidation");
 
 router.post("/", (req, res) => {
+  const { errors, isValid } = validateRegisterInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   const { username, password } = req.body;
 
   User.findOne({ username }).then(user => {
     if (user) {
-      return res.status(400).json({ username: "Username already exists" });
+      errors.username = "Username already exists";
+      return res.status(400).json(errors);
     } else {
       const newUser = new User({
         username: username,

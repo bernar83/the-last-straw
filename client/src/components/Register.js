@@ -24,33 +24,29 @@ class Register extends Component {
     axios
       .post("/register", {
         username: this.state.username,
-        password: this.state.password
+        password: this.state.password,
+        passwordConfirmation: this.state.passwordConfirmation
       })
-      .then(res => this.props.history.push(res.data.redirect))
+      .then(res => console.log(res))
       .catch(err => console.log(err));
   };
 
   onPassword = event => {
-    this.setState({ password: event.target.value },
-      () => {
-        this.checkPasswords();
-      }
-    );
+    this.setState({ password: event.target.value }, () => {
+      this.checkPasswords();
+    });
   };
 
   onConfirm = event => {
-    this.setState({ passwordConfirmation: event.target.value },
-      () => {
-        this.checkPasswords();
-      }
-    );
+    this.setState({ passwordConfirmation: event.target.value }, () => {
+      this.checkPasswords();
+    });
   };
 
   checkPasswords() {
     if (this.state.password === this.state.passwordConfirmation) {
       this.setState({ passwordsMatch: true });
-    }
-    else {
+    } else {
       this.setState({ passwordsMatch: false });
     }
   }
@@ -78,6 +74,7 @@ class Register extends Component {
             required={true}
           />
           <TextField
+            error={true}
             label="Re-type Password"
             name="passwordConfirmation"
             type="password"
