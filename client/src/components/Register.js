@@ -9,7 +9,8 @@ class Register extends Component {
     username: "",
     password: "",
     passwordConfirmation: "",
-    passwordsMatch: true
+    passwordsMatch: true,
+    errors: { passwordConfirmation: "" }
   };
 
   handleUserChange = event => {
@@ -28,7 +29,7 @@ class Register extends Component {
         passwordConfirmation: this.state.passwordConfirmation
       })
       .then(res => console.log(res))
-      .catch(err => console.log(err));
+      .catch(err => this.setState({ errors: err.response.data }));
   };
 
   onPassword = event => {
@@ -46,12 +47,18 @@ class Register extends Component {
   checkPasswords() {
     if (this.state.password === this.state.passwordConfirmation) {
       this.setState({ passwordsMatch: true });
+      this.setState({ errors: { passwordConfirmation: "" } });
     } else {
       this.setState({ passwordsMatch: false });
+      this.setState({
+        errors: { passwordConfirmation: "Passwords must match." }
+      });
     }
   }
 
   render() {
+    const { errors } = this.state;
+
     return (
       <div>
         <Typography variant="h3" gutterBottom>
@@ -63,7 +70,8 @@ class Register extends Component {
             name="username"
             value={this.state.username}
             onChange={this.handleUserChange}
-            required={true}
+            helperText={errors.username ? errors.username : ""}
+            error={errors.username ? true : false}
           />
           <TextField
             label="Password"
@@ -71,22 +79,22 @@ class Register extends Component {
             type="password"
             value={this.state.password}
             onChange={this.onPassword}
-            required={true}
+            helperText={errors.password ? errors.password : ""}
+            error={errors.password ? true : false}
           />
           <TextField
-            error={true}
             label="Re-type Password"
             name="passwordConfirmation"
             type="password"
             value={this.state.passwordConfirmation}
             onChange={this.onConfirm}
-            required={true}
+            helperText={errors.passwordConfirmation}
+            error={!this.state.passwordsMatch ? true : false}
           />
           <Button variant="contained" type="submit">
             Register
           </Button>
         </form>
-        {!this.state.passwordsMatch && <p>Passwords don't match!</p>}
       </div>
     );
   }

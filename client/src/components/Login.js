@@ -8,7 +8,8 @@ class Login extends Component {
   state = {
     username: "",
     password: "",
-    message: ""
+    message: "",
+    errors: {}
   };
 
   handleChange = event => {
@@ -42,7 +43,6 @@ class Login extends Component {
             name="username"
             value={this.state.username}
             onChange={this.handleChange}
-            required={true}
           />
           <TextField
             label="Password"
@@ -50,7 +50,6 @@ class Login extends Component {
             type="password"
             value={this.state.password}
             onChange={this.handleChange}
-            required={true}
           />
           <Button variant="contained" type="submit">
             Login

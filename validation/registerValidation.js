@@ -18,10 +18,6 @@ module.exports = function validateRegisterInput(data) {
     errors.username = "Username can't be blank.";
   }
 
-  if (Validator.isEmpty(data.password)) {
-    errors.password = "Password can't be blank.";
-  }
-
   if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
     errors.password = "Password must be between 6 and 30 characters.";
   }
