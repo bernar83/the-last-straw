@@ -28,10 +28,12 @@ class Login extends Component {
       .then(res => {
         console.log(res);
       })
-      .catch(err => console.log(err));
+      .catch(err => this.setState({ errors: err.response.data }));
   };
 
   render() {
+    const { errors } = this.state;
+
     return (
       <div>
         <Typography variant="h3" gutterBottom>
@@ -43,6 +45,8 @@ class Login extends Component {
             name="username"
             value={this.state.username}
             onChange={this.handleChange}
+            helperText={errors.username ? errors.username : ""}
+            error={errors.username ? true : false}
           />
           <TextField
             label="Password"
@@ -50,6 +54,8 @@ class Login extends Component {
             type="password"
             value={this.state.password}
             onChange={this.handleChange}
+            helperText={errors.password ? errors.password : ""}
+            error={errors.password ? true : false}
           />
           <Button variant="contained" type="submit">
             Login
