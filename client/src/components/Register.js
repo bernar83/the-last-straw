@@ -47,12 +47,8 @@ class Register extends Component {
   checkPasswords() {
     if (this.state.password === this.state.passwordConfirmation) {
       this.setState({ passwordsMatch: true });
-      this.setState({ errors: { passwordConfirmation: "" } });
     } else {
       this.setState({ passwordsMatch: false });
-      this.setState({
-        errors: { passwordConfirmation: "Passwords must match." }
-      });
     }
   }
 
@@ -89,12 +85,20 @@ class Register extends Component {
             value={this.state.passwordConfirmation}
             onChange={this.onConfirm}
             helperText={errors.passwordConfirmation}
-            error={!this.state.passwordsMatch ? true : false}
+            error={errors.passwordConfirmation ? true : false}
           />
           <Button variant="contained" type="submit">
             Register
           </Button>
         </form>
+
+        {!this.state.passwordsMatch ? (
+          <Typography variant="body2" color={"error"} gutterBottom>
+            Passwords don't match.
+          </Typography>
+        ) : (
+          false
+        )}
       </div>
     );
   }

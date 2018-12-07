@@ -22,6 +22,10 @@ module.exports = function validateRegisterInput(data) {
     errors.password = "Password must be between 6 and 30 characters.";
   }
 
+  if (Validator.isEmpty(data.passwordConfirmation)) {
+    errors.passwordConfirmation = "Password confirmation can't be blank.";
+  }
+
   if (!Validator.equals(data.password, data.passwordConfirmation)) {
     errors.passwordConfirmation = "Passwords must match.";
   }
