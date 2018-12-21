@@ -3,12 +3,16 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
+
+import setAuthToken from "../utils/setAuthToken";
 
 class Login extends Component {
   state = {
     username: "",
     password: "",
-    message: ""
+    message: "",
+    errors: {}
   };
 
   handleChange = event => {
@@ -25,12 +29,26 @@ class Login extends Component {
         password: this.state.password
       })
       .then(res => {
-        console.log(res);
+        const { token } = res.data;
+
+        localStorage.setItem("jwtToken", token);
+
+        setAuthToken(token);
+
+        const decoded = jwt_decode(token);
+
+        this.props.setCurrentUser(decoded);
+
+        if (this.props.isAuthenticated) {
+          this.props.history.push("/profile");
+        }
       })
-      .catch(err => console.log(err));
+      .catch(err => this.setState({ errors: err.response.data }));
   };
 
   render() {
+    const { errors } = this.state;
+
     return (
       <div>
         <Typography variant="h3" gutterBottom>
@@ -42,7 +60,8 @@ class Login extends Component {
             name="username"
             value={this.state.username}
             onChange={this.handleChange}
-            required={true}
+            helperText={errors.username ? errors.username : ""}
+            error={errors.username ? true : false}
           />
           <TextField
             label="Password"
@@ -50,7 +69,8 @@ class Login extends Component {
             type="password"
             value={this.state.password}
             onChange={this.handleChange}
-            required={true}
+            helperText={errors.password ? errors.password : ""}
+            error={errors.password ? true : false}
           />
           <Button variant="contained" type="submit">
             Login
