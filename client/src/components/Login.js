@@ -3,6 +3,9 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
+
+import setAuthToken from "../utils/setAuthToken";
 
 class Login extends Component {
   state = {
@@ -26,7 +29,19 @@ class Login extends Component {
         password: this.state.password
       })
       .then(res => {
-        console.log(res);
+        const { token } = res.data;
+
+        localStorage.setItem("jwtToken", token);
+
+        setAuthToken(token);
+
+        const decoded = jwt_decode(token);
+
+        this.props.setCurrentUser(decoded);
+
+        if (this.props.isAuthenticated) {
+          this.props.history.push("/profile");
+        }
       })
       .catch(err => this.setState({ errors: err.response.data }));
   };

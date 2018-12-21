@@ -26,7 +26,7 @@ router.post("/", (req, res) => {
       if (isMatch) {
         const payload = {
           id: user._id,
-          name: user.username
+          username: user.username
         };
 
         jwt.sign(

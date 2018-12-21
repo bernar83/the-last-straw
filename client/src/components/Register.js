@@ -28,7 +28,7 @@ class Register extends Component {
         password: this.state.password,
         passwordConfirmation: this.state.passwordConfirmation
       })
-      .then(res => console.log(res))
+      .then(res => this.props.history.push("/login"))
       .catch(err => this.setState({ errors: err.response.data }));
   };
 
