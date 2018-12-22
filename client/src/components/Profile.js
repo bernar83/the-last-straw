@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
+import Navbar from "./Navbar";
+
 class Profile extends Component {
   componentDidMount() {
     if (localStorage.jwtToken) {
@@ -15,7 +17,12 @@ class Profile extends Component {
   }
 
   render() {
-    return <h1>hello profile</h1>;
+    return (
+      <div>
+        <Navbar setCurrentUser={this.props.setCurrentUser} />
+        <h1>hello profile</h1>
+      </div>
+    );
   }
 }
 
