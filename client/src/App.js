@@ -9,7 +9,6 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import isEmpty from "./utils/is-empty.js";
-import Navbar from "./components/Navbar";
 
 class App extends Component {
   state = {
@@ -25,10 +24,6 @@ class App extends Component {
     return (
       <Router history={history}>
         <div>
-          <Navbar
-            logOutCurrentUser={this.logOutCurrentUser}
-            setCurrentUser={this.setCurrentUser}
-          />
           <Route exact path="/" component={Landing} />
           <Route exact path="/register" component={Register} />
           <Route
