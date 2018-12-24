@@ -56,11 +56,14 @@ class Register extends Component {
     const { errors } = this.state;
 
     return (
-      <div>
-        <Typography variant="h3" gutterBottom>
+      <div style={{ padding: "80px" }}>
+        <Typography variant="h3" gutterBottom align="center">
           Register
         </Typography>
-        <form onSubmit={this.onHandleSubmit}>
+        <form
+          onSubmit={this.onHandleSubmit}
+          style={{ display: "flex", flexWrap: "wrap", flexDirection: "column" }}
+        >
           <TextField
             label="Username"
             name="username"
@@ -68,6 +71,7 @@ class Register extends Component {
             onChange={this.handleUserChange}
             helperText={errors.username ? errors.username : ""}
             error={errors.username ? true : false}
+            style={{ marginBottom: "10px" }}
           />
           <TextField
             label="Password"
@@ -77,6 +81,7 @@ class Register extends Component {
             onChange={this.onPassword}
             helperText={errors.password ? errors.password : ""}
             error={errors.password ? true : false}
+            style={{ marginBottom: "10px" }}
           />
           <TextField
             label="Re-type Password"
@@ -86,8 +91,13 @@ class Register extends Component {
             onChange={this.onConfirm}
             helperText={errors.passwordConfirmation}
             error={errors.passwordConfirmation ? true : false}
+            style={{ marginBottom: "40px" }}
           />
-          <Button variant="contained" type="submit">
+          <Button
+            variant="contained"
+            type="submit"
+            style={{ width: "400px", alignSelf: "center" }}
+          >
             Register
           </Button>
         </form>
