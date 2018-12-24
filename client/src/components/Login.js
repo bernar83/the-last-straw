@@ -50,11 +50,14 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div>
-        <Typography variant="h3" gutterBottom>
+      <div style={{ padding: "80px" }}>
+        <Typography variant="h3" gutterBottom align="center">
           Login
         </Typography>
-        <form onSubmit={this.onHandleSubmit}>
+        <form
+          onSubmit={this.onHandleSubmit}
+          style={{ display: "flex", flexWrap: "wrap", flexDirection: "column" }}
+        >
           <TextField
             label="Username"
             name="username"
@@ -62,6 +65,7 @@ class Login extends Component {
             onChange={this.handleChange}
             helperText={errors.username ? errors.username : ""}
             error={errors.username ? true : false}
+            style={{ marginBottom: "10px" }}
           />
           <TextField
             label="Password"
@@ -71,8 +75,13 @@ class Login extends Component {
             onChange={this.handleChange}
             helperText={errors.password ? errors.password : ""}
             error={errors.password ? true : false}
+            style={{ marginBottom: "40px" }}
           />
-          <Button variant="contained" type="submit">
+          <Button
+            variant="contained"
+            type="submit"
+            style={{ width: "400px", alignSelf: "center" }}
+          >
             Login
           </Button>
         </form>
