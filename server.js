@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const register = require("./routes/register");
 const profile = require("./routes/profile");
 const login = require("./routes/login");
+const entry = require("./routes/entry");
 
 const app = express();
 dotenv.config();
@@ -27,6 +28,7 @@ mongoose
 app.use("/register", register);
 app.use("/profile", profile);
 app.use("/login", login);
+app.use("/entry", entry);
 
 const port = process.env.PORT || 5000;
 
