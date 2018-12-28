@@ -3,8 +3,9 @@ import React, { Component } from "react";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
-import Navbar from "./Navbar";
+import Entry from "./Entry";
 
+import Navbar from "./Navbar";
 class Profile extends Component {
   componentDidMount() {
     if (localStorage.jwtToken) {
@@ -20,7 +21,7 @@ class Profile extends Component {
     return (
       <div>
         <Navbar setCurrentUser={this.props.setCurrentUser} />
-        <h1>hello profile</h1>
+        <Entry />
       </div>
     );
   }
