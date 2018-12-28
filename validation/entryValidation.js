@@ -20,6 +20,10 @@ module.exports = function validateEntryInput(data) {
     errors.amount = "Amount can't be blank.";
   }
 
+  if (Validator.isAlpha(data.amount)) {
+    errors.amount = "Amount should be a number";
+  }
+
   return {
     errors,
     isValid: isEmpty(errors)
