@@ -1,19 +1,12 @@
 import React, { Component } from "react";
 
-import setAuthToken from "../utils/setAuthToken";
-import jwt_decode from "jwt-decode";
-
 import Entry from "./Entry";
 
 import Navbar from "./Navbar";
 class Profile extends Component {
-  componentDidMount() {
-    if (localStorage.jwtToken) {
-      setAuthToken(localStorage.jwtToken);
-
-      const decoded = jwt_decode(localStorage.jwtToken);
-
-      this.props.setCurrentUser(decoded);
+  componentWillMount() {
+    if (!this.props.isAuthenticated) {
+      this.props.history.push("/login");
     }
   }
 
