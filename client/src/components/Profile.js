@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import Entry from "./Entry";
 
 import Navbar from "./Navbar";
+
 class Profile extends Component {
   componentWillMount() {
     if (!this.props.isAuthenticated) {
@@ -13,7 +14,10 @@ class Profile extends Component {
   render() {
     return (
       <div>
-        <Navbar setCurrentUser={this.props.setCurrentUser} />
+        <Navbar
+          setCurrentUser={this.props.setCurrentUser}
+          destination={"history"}
+        />
         <Entry />
       </div>
     );

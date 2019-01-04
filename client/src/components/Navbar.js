@@ -22,8 +22,12 @@ class Navbar extends Component {
         <Button onClick={this.logOutCurrentUser} variant="contained">
           Log Out
         </Button>
-        <Button variant="contained" component={Link} to={"/history"}>
-          History
+        <Button
+          variant="contained"
+          component={Link}
+          to={`/${this.props.destination}`}
+        >
+          {this.props.destination}
         </Button>
       </div>
     );

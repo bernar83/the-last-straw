@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+import Navbar from "./Navbar";
+
 class History extends Component {
   componentWillMount() {
     if (!this.props.isAuthenticated) {
@@ -16,7 +18,14 @@ class History extends Component {
   }
 
   render() {
-    return <h1>hello history</h1>;
+    return (
+      <div>
+        <Navbar
+          setCurrentUser={this.props.setCurrentUser}
+          destination={"profile"}
+        />
+      </div>
+    );
   }
 }
 
