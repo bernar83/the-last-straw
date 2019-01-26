@@ -1,7 +1,7 @@
 import React, { Component } from "react";
+import Typography from "@material-ui/core/Typography";
 
 import Entry from "./Entry";
-
 import Navbar from "./Navbar";
 
 class Profile extends Component {
@@ -18,6 +18,9 @@ class Profile extends Component {
           setCurrentUser={this.props.setCurrentUser}
           destination={"history"}
         />
+        <Typography variant="h2" align="center" gutterBottom>
+          Profile
+        </Typography>
         <Entry />
       </div>
     );

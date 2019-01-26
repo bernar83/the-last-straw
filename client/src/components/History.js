@@ -6,12 +6,14 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 
 import Navbar from "./Navbar";
 
 class History extends Component {
   state = {
-    entries: []
+    entries: [],
+    isLoading: true
   };
 
   componentWillMount() {
@@ -21,7 +23,7 @@ class History extends Component {
       axios
         .get("/history")
         .then(res => {
-          this.setState({ entries: res.data });
+          this.setState({ entries: res.data, isLoading: false });
         })
         .catch(err => console.log(err));
     }
@@ -36,30 +38,39 @@ class History extends Component {
           setCurrentUser={this.props.setCurrentUser}
           destination={"profile"}
         />
-        <Paper>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Date</TableCell>
-                <TableCell align="right">Venue</TableCell>
-                <TableCell align="right">Amount</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {this.state.entries.map(entry => {
-                return (
-                  <TableRow key={entry._id}>
-                    <TableCell component="th" scope="row">
-                      {entry.date}
-                    </TableCell>
-                    <TableCell align="right">{entry.venue}</TableCell>
-                    <TableCell align="right">{entry.amount}</TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </Paper>
+        <Typography variant="h2" align="center" gutterBottom>
+          History
+        </Typography>
+        {!this.state.isLoading ? (
+          <Paper>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Date</TableCell>
+                  <TableCell align="right">Venue</TableCell>
+                  <TableCell align="right">Amount</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {this.state.entries.map(entry => {
+                  return (
+                    <TableRow key={entry._id}>
+                      <TableCell component="th" scope="row">
+                        {entry.date}
+                      </TableCell>
+                      <TableCell align="right">{entry.venue}</TableCell>
+                      <TableCell align="right">{entry.amount}</TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </Paper>
+        ) : (
+          <Typography variant="body1" align="left">
+            Loading...
+          </Typography>
+        )}
       </div>
     );
   }
