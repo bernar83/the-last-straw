@@ -9,12 +9,26 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import isEmpty from "./utils/is-empty.js";
+import History from "./components/History";
+
+import setAuthToken from "./utils/setAuthToken";
+import jwt_decode from "jwt-decode";
 
 class App extends Component {
   state = {
     user: {},
     isAuthenticated: false
   };
+
+  componentWillMount() {
+    if (localStorage.jwtToken) {
+      setAuthToken(localStorage.jwtToken);
+
+      const decoded = jwt_decode(localStorage.jwtToken);
+
+      this.setCurrentUser(decoded);
+    }
+  }
 
   setCurrentUser = decoded => {
     this.setState({ user: decoded, isAuthenticated: !isEmpty(decoded) });
@@ -32,7 +46,6 @@ class App extends Component {
             render={props => (
               <Login
                 {...props}
-                user={this.state.user}
                 isAuthenticated={this.state.isAuthenticated}
                 setCurrentUser={this.setCurrentUser}
               />
@@ -44,7 +57,17 @@ class App extends Component {
             render={props => (
               <Profile
                 {...props}
-                user={this.state.user}
+                isAuthenticated={this.state.isAuthenticated}
+                setCurrentUser={this.setCurrentUser}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/history"
+            render={props => (
+              <History
+                {...props}
                 isAuthenticated={this.state.isAuthenticated}
                 setCurrentUser={this.setCurrentUser}
               />
