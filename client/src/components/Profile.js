@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import Typography from "@material-ui/core/Typography";
+import axios from "axios";
 
 import Entry from "./Entry";
 import Navbar from "./Navbar";
 
 class Profile extends Component {
   componentWillMount() {
-    if (!this.props.isAuthenticated) {
-      this.props.history.push("/login");
-    }
+    axios
+      .get("/profile")
+      .then(res => this.props.setCurrentUser(res.data))
+      .catch(err => this.props.history.push("/login"));
   }
 
   render() {
