@@ -42,7 +42,16 @@ class App extends Component {
       <Router history={history}>
         <div>
           <Route exact path="/" component={Landing} />
-          <Route exact path="/register" component={Register} />
+          <Route
+            exact
+            path="/register"
+            render={props => (
+              <Register
+                {...props}
+                isAuthenticated={this.state.isAuthenticated}
+              />
+            )}
+          />
           <Route
             exact
             path="/login"
