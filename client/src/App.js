@@ -25,8 +25,11 @@ class App extends Component {
       setAuthToken(localStorage.jwtToken);
 
       const decoded = jwt_decode(localStorage.jwtToken);
-
-      this.setCurrentUser(decoded);
+      if (decoded.exp < Date.now() / 1000) {
+        this.setCurrentUser({});
+      } else {
+        this.setCurrentUser(decoded);
+      }
     }
   }
 

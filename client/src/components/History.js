@@ -30,8 +30,6 @@ class History extends Component {
   }
 
   render() {
-    console.log(this.state.entries);
-
     return (
       <div>
         <Navbar
