@@ -15,6 +15,12 @@ class Login extends Component {
     errors: {}
   };
 
+  componentWillMount() {
+    if (this.props.isAuthenticated) {
+      this.props.history.push("/profile");
+    }
+  }
+
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value

@@ -13,6 +13,12 @@ class Register extends Component {
     errors: { passwordConfirmation: "" }
   };
 
+  componentWillMount() {
+    if (this.props.isAuthenticated) {
+      this.props.history.push("/profile");
+    }
+  }
+
   handleUserChange = event => {
     this.setState({
       [event.target.name]: event.target.value
