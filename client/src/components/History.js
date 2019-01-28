@@ -11,7 +11,7 @@ class History extends Component {
   render() {
     return (
       <div>
-        {!this.props.isLoading ? (
+        {this.props.entries.length > 0 ? (
           <Paper>
             <Table>
               <TableHead>
@@ -38,7 +38,7 @@ class History extends Component {
           </Paper>
         ) : (
           <Typography variant="body1" align="left">
-            Loading...
+            Add an entry!
           </Typography>
         )}
       </div>
