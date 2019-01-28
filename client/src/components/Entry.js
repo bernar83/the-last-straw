@@ -26,9 +26,16 @@ class Entry extends Component {
         amount: this.state.amount
       })
       .then(res => {
-        console.log(res);
+        this.props.onHandleEntrySubmit(res.data);
       })
-      .catch(err => this.setState({ errors: err.response.data }));
+      .catch(err => {
+        console.log(err);
+      });
+    this.setState({
+      date: "",
+      venue: "",
+      amount: ""
+    });
   };
 
   render() {
@@ -69,7 +76,7 @@ class Entry extends Component {
           type="submit"
           style={{ width: "400px", alignSelf: "center" }}
         >
-          Submit Entry!
+          Submit!
         </Button>
       </form>
     );

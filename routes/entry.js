@@ -13,8 +13,10 @@ router.post("/", (req, res) => {
 
   const { date, venue, amount } = req.body;
 
+  const dateObj = new Date(date);
+
   const entry = new Entry({
-    date: new Date(date),
+    date: dateObj.toDateString(),
     venue: venue,
     amount: amount
   });

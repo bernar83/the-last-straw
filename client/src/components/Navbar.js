@@ -3,7 +3,6 @@ import Button from "@material-ui/core/Button";
 
 import setAuthToken from "../utils/setAuthToken";
 import history from "../utils/history";
-import { Link } from "react-router-dom";
 
 class Navbar extends Component {
   logOutCurrentUser = () => {
@@ -21,13 +20,6 @@ class Navbar extends Component {
       <div>
         <Button onClick={this.logOutCurrentUser} variant="contained">
           Log Out
-        </Button>
-        <Button
-          variant="contained"
-          component={Link}
-          to={`/${this.props.destination}`}
-        >
-          {this.props.destination}
         </Button>
       </div>
     );
