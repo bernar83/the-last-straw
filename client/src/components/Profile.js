@@ -12,14 +12,14 @@ class Profile extends Component {
     isLoading: true
   };
 
-  componentDidMount() {
+  componentWillMount() {
     axios
       .get("/profile")
       .then(res => this.props.setCurrentUser(res.data))
       .catch(err => this.props.history.push("/login"));
   }
 
-  componentWillMount() {
+  componentDidMount() {
     axios
       .get("/history")
       .then(res => {

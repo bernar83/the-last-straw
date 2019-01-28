@@ -31,6 +31,11 @@ class Entry extends Component {
       .catch(err => {
         console.log(err);
       });
+    this.setState({
+      date: "",
+      venue: "",
+      amount: ""
+    });
   };
 
   render() {
