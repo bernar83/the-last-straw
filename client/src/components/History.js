@@ -6,6 +6,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 
 class History extends Component {
   render() {
@@ -30,6 +31,10 @@ class History extends Component {
                       </TableCell>
                       <TableCell>{entry.venue}</TableCell>
                       <TableCell>{entry.amount}</TableCell>
+                      <TableCell>
+                        <Button variant="contained">Delete</Button>
+                        <Button variant="contained">Edit</Button>
+                      </TableCell>
                     </TableRow>
                   );
                 })}
