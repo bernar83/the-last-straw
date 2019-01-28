@@ -17,8 +17,8 @@ class History extends Component {
               <TableHead>
                 <TableRow>
                   <TableCell>Date</TableCell>
-                  <TableCell align="right">Venue</TableCell>
-                  <TableCell align="right">Amount</TableCell>
+                  <TableCell>Venue</TableCell>
+                  <TableCell>Amount</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -28,8 +28,8 @@ class History extends Component {
                       <TableCell component="th" scope="row">
                         {entry.date}
                       </TableCell>
-                      <TableCell align="right">{entry.venue}</TableCell>
-                      <TableCell align="right">{entry.amount}</TableCell>
+                      <TableCell>{entry.venue}</TableCell>
+                      <TableCell>{entry.amount}</TableCell>
                     </TableRow>
                   );
                 })}
