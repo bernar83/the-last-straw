@@ -29,7 +29,7 @@ class Register extends Component {
     event.preventDefault();
 
     axios
-      .post("/register", {
+      .post("/api/register", {
         username: this.state.username,
         password: this.state.password,
         passwordConfirmation: this.state.passwordConfirmation

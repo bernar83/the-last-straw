@@ -22,10 +22,10 @@ mongoose
   .then(() => console.log("MongoDB connected..."))
   .catch(err => console.log(err));
 
-app.use("/register", register);
-app.use("/profile", profile);
-app.use("/login", login);
-app.use("/entry", entry);
+app.use("/api/register", register);
+app.use("/api/profile", profile);
+app.use("/api/login", login);
+app.use("/api/entry", entry);
 
 const port = process.env.PORT || 5000;
 

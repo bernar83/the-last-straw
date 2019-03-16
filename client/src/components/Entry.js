@@ -20,7 +20,7 @@ class Entry extends Component {
   onHandleSubmit = event => {
     event.preventDefault();
     axios
-      .post("/entry", {
+      .post("/api/entry", {
         date: this.state.date,
         venue: this.state.venue,
         amount: this.state.amount
