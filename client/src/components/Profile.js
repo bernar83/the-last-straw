@@ -21,7 +21,7 @@ class Profile extends Component {
 
   componentDidMount() {
     axios
-      .get("/history")
+      .get("/entry")
       .then(res => {
         this.setState({ entries: res.data, isLoading: false });
       })

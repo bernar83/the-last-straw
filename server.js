@@ -7,7 +7,6 @@ const register = require("./routes/register");
 const profile = require("./routes/profile");
 const login = require("./routes/login");
 const entry = require("./routes/entry");
-const history = require("./routes/history");
 
 const app = express();
 dotenv.config();
@@ -19,10 +18,7 @@ require("./config/passport")(app);
 const db = process.env.MONGO_URI;
 
 mongoose
-  .connect(
-    db,
-    { useNewUrlParser: true }
-  )
+  .connect(db, { useNewUrlParser: true })
   .then(() => console.log("MongoDB connected..."))
   .catch(err => console.log(err));
 
@@ -30,7 +26,6 @@ app.use("/register", register);
 app.use("/profile", profile);
 app.use("/login", login);
 app.use("/entry", entry);
-app.use("/history", history);
 
 const port = process.env.PORT || 5000;
 
