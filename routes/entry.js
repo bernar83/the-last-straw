@@ -47,4 +47,16 @@ router.get(
   }
 );
 
+router.delete(
+  "/:entry_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Entry.findOneAndDelete({ _id: req.params.entry_id })
+      .then(() => {
+        res.json({ success: true });
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
 module.exports = router;

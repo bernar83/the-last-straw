@@ -34,6 +34,18 @@ class Profile extends Component {
     this.setState({ entries: entries });
   };
 
+  onHandleDeleteEntry = entryId => {
+    axios
+      .delete(`/api/entry/${entryId}`)
+      .then(res => {
+        const { entries } = this.state;
+        const removeIndex = entries.map(item => item._id).indexOf(entryId);
+        entries.splice(removeIndex, 1);
+        this.setState({ entries: entries });
+      })
+      .catch(err => console.log(err));
+  };
+
   render() {
     return (
       <div>
@@ -51,6 +63,7 @@ class Profile extends Component {
         <History
           entries={this.state.entries}
           isLoading={this.state.isLoading}
+          onHandleDeleteEntry={this.onHandleDeleteEntry}
         />
       </div>
     );
