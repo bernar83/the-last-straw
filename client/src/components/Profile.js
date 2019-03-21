@@ -105,9 +105,14 @@ class Profile extends Component {
   };
 
   handleFormClose = () => {
-    this.setState({
-      isFormOpen: false
-    });
+    this.setState(
+      {
+        isFormOpen: false
+      },
+      () => {
+        this.setState({ date: "", venue: "", amount: "", entryId: "0" });
+      }
+    );
   };
 
   onHandleEditClick = (entryId, event) => {
