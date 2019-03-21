@@ -16,11 +16,11 @@ module.exports = function validateEntryInput(data) {
     errors.venue = "Venue can't be blank.";
   }
 
-  if (Validator.isEmpty(data.amount)) {
+  if (Validator.isEmpty(data.amount.toString())) {
     errors.amount = "Amount can't be blank.";
   }
 
-  if (Validator.isAlpha(data.amount)) {
+  if (Validator.isAlpha(data.amount.toString())) {
     errors.amount = "Amount should be a number";
   }
 
