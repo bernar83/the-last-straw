@@ -40,20 +40,33 @@ class Profile extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
+    if (
+      this.state.errors.amount ||
+      this.state.errors.venue ||
+      this.state.errors.date
+    ) {
+      this.setState({ errors: {} });
+    }
   };
 
   onHandleSubmit = event => {
     event.preventDefault();
-    this.submitForm(this.state.entryId);
-    if (
-      this.state.errors.date ||
-      this.state.errors.venue ||
-      this.state.errors.amount
-    ) {
-      return;
-    } else {
-      this.handleFormClose();
-    }
+    axios
+      .post(`/api/entry/${this.state.entryId}`, {
+        date: this.state.date,
+        venue: this.state.venue,
+        amount: this.state.amount
+      })
+      .then(res => {
+        this.onHandleEntrySubmit(res.data);
+        this.handleFormClose();
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({ errors: err.response.data }, () => {
+          return;
+        });
+      });
   };
 
   onHandleEntrySubmit = entry => {
@@ -85,22 +98,6 @@ class Profile extends Component {
         this.setState({ entries: entries });
       })
       .catch(err => console.log(err));
-  };
-
-  submitForm = entryId => {
-    axios
-      .post(`/api/entry/${entryId}`, {
-        date: this.state.date,
-        venue: this.state.venue,
-        amount: this.state.amount
-      })
-      .then(res => {
-        this.onHandleEntrySubmit(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-        this.setState({ errors: err.response.data });
-      });
   };
 
   handleClickFormOpen = () => {
