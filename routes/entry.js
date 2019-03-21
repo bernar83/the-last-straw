@@ -6,7 +6,7 @@ const Entry = require("../models/Entry");
 const validateEntryInput = require("../validation/entryValidation");
 
 router.post(
-  "/",
+  "/:entry_id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateEntryInput(req.body);
@@ -17,19 +17,29 @@ router.post(
 
     const { date, venue, amount } = req.body;
 
-    const dateObj = new Date(date);
+    if (req.params.entry_id === "0") {
+      const entry = new Entry({
+        user: req.user._id,
+        date: date,
+        venue: venue,
+        amount: amount
+      });
 
-    const entry = new Entry({
-      user: req.user._id,
-      date: dateObj.toDateString(),
-      venue: venue,
-      amount: amount
-    });
-
-    entry
-      .save()
-      .then(entry => res.json(entry))
-      .catch(err => console.log(err));
+      entry
+        .save()
+        .then(entry => res.json(entry))
+        .catch(err => console.log(err));
+    } else {
+      Entry.findOneAndUpdate(
+        { _id: req.params.entry_id },
+        { $set: { date: date, venue: venue, amount: amount } },
+        { new: true }
+      )
+        .then(entry => {
+          res.json(entry);
+        })
+        .catch(err => console.log(err));
+    }
   }
 );
 

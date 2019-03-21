@@ -10,7 +10,7 @@ import Button from "@material-ui/core/Button";
 
 class History extends Component {
   render() {
-    const { onHandleDeleteEntry } = this.props;
+    const { onHandleDeleteEntry, onHandleEditClick } = this.props;
 
     return (
       <div>
@@ -40,7 +40,12 @@ class History extends Component {
                         >
                           Delete
                         </Button>
-                        <Button variant="contained">Edit</Button>
+                        <Button
+                          onClick={e => onHandleEditClick(entry._id, e)}
+                          variant="contained"
+                        >
+                          Edit
+                        </Button>
                       </TableCell>
                     </TableRow>
                   );
