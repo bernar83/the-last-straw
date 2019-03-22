@@ -62,7 +62,6 @@ class Profile extends Component {
         this.handleFormClose();
       })
       .catch(err => {
-        console.log(err);
         this.setState({ errors: err.response.data }, () => {
           return;
         });
