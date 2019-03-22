@@ -11,9 +11,10 @@ import Button from "@material-ui/core/Button";
 class History extends Component {
   calculatePlasticSaved = entries => {
     let total = 0;
-    for (let i = 0; i < entries.length; i++) {
-      let entry = entries[i];
-      total += entry.amount;
+    if (entries.length > 0) {
+      total = entries
+        .map(entry => entry.amount)
+        .reduce((acc, curr) => acc + curr);
     }
     const totalPlasticInPounds = total * 0.0009;
     return totalPlasticInPounds.toFixed(4);
