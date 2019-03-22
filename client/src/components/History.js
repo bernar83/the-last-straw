@@ -9,12 +9,22 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
 class History extends Component {
+  calculatePlasticSaved = entries => {
+    let total = 0;
+    for (let i = 0; i < entries.length; i++) {
+      let entry = entries[i];
+      total += entry.amount;
+    }
+    const totalPlasticInPounds = total * 0.0009;
+    return totalPlasticInPounds.toFixed(4);
+  };
+
   render() {
-    const { onHandleDeleteEntry, onHandleEditClick } = this.props;
+    const { onHandleDeleteEntry, onHandleEditClick, entries } = this.props;
 
     return (
       <div>
-        {this.props.entries.length > 0 ? (
+        {entries.length > 0 ? (
           <Paper>
             <Table>
               <TableHead>
@@ -25,7 +35,7 @@ class History extends Component {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {this.props.entries.map(entry => {
+                {entries.map(entry => {
                   return (
                     <TableRow key={entry._id}>
                       <TableCell component="th" scope="row">
@@ -50,6 +60,13 @@ class History extends Component {
                     </TableRow>
                   );
                 })}
+                <TableRow>
+                  <TableCell rowSpan={2} />
+                  <TableCell>Plastic Saved</TableCell>
+                  <TableCell>
+                    {this.calculatePlasticSaved(entries)} lbs
+                  </TableCell>
+                </TableRow>
               </TableBody>
             </Table>
           </Paper>
